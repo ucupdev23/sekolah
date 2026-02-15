@@ -307,10 +307,10 @@
                 </div>
 
                 <!-- Demo Info -->
-                <div class="demo-info">
+                <!-- <div class="demo-info">
                     <i class="fas fa-info-circle me-2"></i>
                     <strong>Akun Demo:</strong> admin@sekolah.test / admin123
-                </div>
+                </div> -->
             </form>
         </div>
     </div>
