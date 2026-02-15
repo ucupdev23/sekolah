@@ -116,9 +116,9 @@
                         <i class="fas fa-arrow-left me-2"></i>Kembali ke Daftar
                     </a>
                     <div>
-                        <button onclick="window.print()" class="btn btn-outline-secondary me-2">
+                        <!-- <button onclick="window.print()" class="btn btn-outline-secondary me-2">
                             <i class="fas fa-print me-2"></i>Cetak
-                        </button>
+                        </button> -->
                         <button onclick="sharePengumuman()" class="btn btn-outline-primary">
                             <i class="fas fa-share-alt me-2"></i>Bagikan
                         </button>

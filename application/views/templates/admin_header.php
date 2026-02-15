@@ -176,8 +176,10 @@
                         <i class="fas fa-users-cog"></i>Admin User
                     </a>
                 <?php endif; ?>
-
                 <hr class="border-light opacity-25 my-2">
+                <a href="<?= site_url('profil/password'); ?>" class="nav-link <?= ($active_menu ?? '') === 'password' ? 'active' : ''; ?>">
+                    <i class="fas fa-key"></i>Ubah Password
+                </a>
                 <a href="<?= site_url('admin/logout'); ?>" class="nav-link text-danger">
                     <i class="fas fa-sign-out-alt"></i>Logout
                 </a>

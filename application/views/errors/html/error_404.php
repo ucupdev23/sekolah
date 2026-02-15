@@ -48,9 +48,9 @@
 
                     <div class="d-flex justify-content-center gap-2 flex-wrap">
                         <!-- langsung arahkan ke base project /sekolah -->
-                        <a href="/sekolah" class="btn btn-light">
+                        <!-- <a href="/sekolah" class="btn btn-light">
                             ← Kembali ke Beranda
-                        </a>
+                        </a> -->
                         <a href="javascript:history.back();" class="btn btn-outline-light">
                             ⤺ Kembali ke Halaman Sebelumnya
                         </a>

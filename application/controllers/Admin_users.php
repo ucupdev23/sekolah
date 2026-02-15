@@ -71,15 +71,15 @@ class Admin_users extends CI_Controller {
     {
         if ($this->input->post()) {
             $this->form_validation->set_rules('name', 'Nama', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
             $this->form_validation->set_rules('role', 'Role', 'required|in_list[admin,super_admin]');
 
             if ($this->form_validation->run() == TRUE) {
-                // Cek email sudah dipakai belum
-                $existing = $this->User_model->get_by_email($this->input->post('email', TRUE));
+                // Cek username sudah dipakai belum
+                $existing = $this->User_model->get_by_username($this->input->post('username', TRUE));
                 if ($existing) {
-                    $data['custom_error'] = 'Email sudah digunakan oleh akun lain.';
+                    $data['custom_error'] = 'Username sudah digunakan oleh akun lain.';
                     $data['title'] = 'Tambah Admin User';
                     $data['active_menu'] = 'users';
                     
@@ -92,7 +92,7 @@ class Admin_users extends CI_Controller {
                 $passwordPlain = $this->input->post('password');
                 $insert = array(
                     'name'     => $this->input->post('name', TRUE),
-                    'email'    => $this->input->post('email', TRUE),
+                    'username'    => $this->input->post('username', TRUE),
                     'password' => password_hash($passwordPlain, PASSWORD_DEFAULT),
                     'role'     => $this->input->post('role'),
                     'created_at' => date('Y-m-d H:i:s')
@@ -124,7 +124,7 @@ class Admin_users extends CI_Controller {
 
         if ($this->input->post()) {
             $this->form_validation->set_rules('name', 'Nama', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
             $this->form_validation->set_rules('role', 'Role', 'required|in_list[admin,super_admin]');
 
             // password opsional saat edit
@@ -133,10 +133,10 @@ class Admin_users extends CI_Controller {
             }
 
             if ($this->form_validation->run() == TRUE) {
-                // Cek email bentrok dengan user lain
-                $existing = $this->User_model->get_by_email($this->input->post('email', TRUE));
+                // Cek username bentrok dengan user lain
+                $existing = $this->User_model->get_by_username($this->input->post('username', TRUE));
                 if ($existing && $existing->id != $user->id) {
-                    $data['custom_error'] = 'Email sudah digunakan oleh akun lain.';
+                    $data['custom_error'] = 'Username sudah digunakan oleh akun lain.';
                     $data['title'] = 'Edit Admin User';
                     $data['active_menu'] = 'users';
                     
@@ -148,7 +148,7 @@ class Admin_users extends CI_Controller {
 
                 $update = array(
                     'name'  => $this->input->post('name', TRUE),
-                    'email' => $this->input->post('email', TRUE),
+                    'username' => $this->input->post('username', TRUE),
                     'role'  => $this->input->post('role'),
                     'updated_at' => date('Y-m-d H:i:s')
                 );

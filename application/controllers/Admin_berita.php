@@ -94,9 +94,16 @@ class Admin_berita extends CI_Controller {
                         // $thumbnail_path = 'uploads/news/' . $upload_data['file_name'];
                         $thumbnail_path = $upload_data['file_name'];
                     } else {
-                        $data['upload_error'] = $this->upload->display_errors();
                         // tampilkan kembali form dengan error
-                        return $this->load->view('admin/berita/form', $data);
+                        $data['title']       = 'Tambah Berita - Admin';
+                        $data['active_menu'] = 'berita';
+                        $data['upload_error'] = $this->upload->display_errors();
+
+                        $this->load->view('templates/admin_header', $data);
+                        $this->load->view('admin/berita/form', $data);
+                        $this->load->view('templates/admin_footer');
+                        
+                        return;
                     }
                 }
 
@@ -157,15 +164,26 @@ class Admin_berita extends CI_Controller {
 
                     if ($this->upload->do_upload('thumbnail')) {
                         // hapus file lama jika ada
-                        if ($thumbnail_path && file_exists(FCPATH . $thumbnail_path)) {
-                            @unlink(FCPATH . $thumbnail_path);
+                        $old_file = FCPATH . 'uploads/news/' . $thumbnail_path;
+                        if ($thumbnail_path && file_exists($old_file)) {
+                            unlink($old_file);
                         }
+                        // if ($thumbnail_path && file_exists(FCPATH . $thumbnail_path)) {
+                        //     @unlink(FCPATH . $thumbnail_path);
+                        // }
                         $upload_data   = $this->upload->data();
                         // $thumbnail_path = 'uploads/news/' . $upload_data['file_name'];
                         $thumbnail_path = $upload_data['file_name'];
                     } else {
+                        $data['title']        = 'Edit Berita - Admin';
+                        $data['active_menu']  = 'berita';
                         $data['upload_error'] = $this->upload->display_errors();
-                        return $this->load->view('admin/berita/form', $data);
+
+                        $this->load->view('templates/admin_header', $data);
+                        $this->load->view('admin/berita/form', $data);
+                        $this->load->view('templates/admin_footer');
+
+                        return;
                     }
                 }
 
@@ -201,8 +219,12 @@ class Admin_berita extends CI_Controller {
     {
         $news = $this->News_model->get_by_id($id);
         if ($news) {
-            if ($news->thumbnail_path && file_exists(FCPATH . $news->thumbnail_path)) {
-                @unlink(FCPATH . $news->thumbnail_path);
+            // if ($news->thumbnail_path && file_exists(FCPATH . $news->thumbnail_path)) {
+            //     @unlink(FCPATH . $news->thumbnail_path);
+            // }
+            $file = FCPATH . 'uploads/news/' . $news->thumbnail_path;
+            if ($news->thumbnail_path && file_exists($file)) {
+                unlink($file);
             }
             $this->db->where('id', $id)->delete('news');
         }

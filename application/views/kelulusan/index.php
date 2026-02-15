@@ -147,9 +147,9 @@ function getAlumniInitials($name) {
                                    placeholder="Masukkan nama siswa atau NISN..."
                                    value="<?= htmlspecialchars($keyword ?? ''); ?>">
                         </div>
-                        <small class="text-muted">
+                        <!-- <small class="text-muted">
                             Cari berdasarkan nama lengkap atau NISN
-                        </small>
+                        </small> -->
                     </div>
                     
                     <div class="col-md-3">
@@ -308,7 +308,10 @@ function getAlumniInitials($name) {
                                                 data-nisn="<?= htmlspecialchars($alumni->nisn); ?>"
                                                 data-year="<?= $alumni->graduation_year; ?>"
                                                 data-major="<?= htmlspecialchars($alumni->major ?? '-'); ?>"
-                                                data-cv="<?= !empty($alumni->cv_link) ? 'Ya' : 'Tidak'; ?>">
+                                                data-cv="<?= !empty($alumni->cv_link) ? 'Ya' : 'Tidak'; ?>"
+                                                data-photo="<?= !empty($alumni->photo_path) 
+                                                ? base_url('uploads/graduates/photos/' . $alumni->photo_path) 
+                                                : ''; ?>">
                                             <i class="fas fa-info-circle me-1"></i>Detail
                                         </button>
                                     </div>
@@ -344,17 +347,7 @@ function getAlumniInitials($name) {
                                                 </span>
                                             </td>
                                             <td>
-                                                <div class="d-flex align-items-center">
-                                                    <?php if (!empty($alumni->photo_path)): ?>
-                                                        <img src="<?= base_url('uploads/graduates/photos/' . $alumni->photo_path); ?>" 
-                                                             alt="Foto" 
-                                                             class="rounded-circle me-3"
-                                                             style="width: 40px; height: 40px; object-fit: cover;">
-                                                    <?php endif; ?>
-                                                    <div>
-                                                        <strong><?= htmlspecialchars($alumni->student_name); ?></strong>
-                                                    </div>
-                                                </div>
+                                                <strong><?= htmlspecialchars($alumni->student_name); ?></strong>
                                             </td>
                                             <td><?= htmlspecialchars($alumni->nisn); ?></td>
                                             <!-- <td><?= htmlspecialchars($alumni->major ?? '-'); ?></td> -->
@@ -390,7 +383,10 @@ function getAlumniInitials($name) {
                                                             data-nisn="<?= htmlspecialchars($alumni->nisn); ?>"
                                                             data-year="<?= $alumni->graduation_year; ?>"
                                                             data-major="<?= htmlspecialchars($alumni->major ?? '-'); ?>"
-                                                            data-cv="<?= !empty($alumni->cv_link) ? 'Ya' : 'Tidak'; ?>">
+                                                            data-cv="<?= !empty($alumni->cv_link) ? 'Ya' : 'Tidak'; ?>"
+                                                            data-photo="<?= !empty($alumni->photo_path) 
+                                                            ? base_url('uploads/graduates/photos/' . $alumni->photo_path) 
+                                                            : ''; ?>">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                 </div>
@@ -567,8 +563,8 @@ function getAlumniInitials($name) {
             </div>
             <div class="modal-body">
                 <div class="text-center mb-4">
-                    <div class="alumni-avatar-modal mx-auto mb-3">
-                        <div class="avatar-placeholder-modal">
+                    <div class="modal-avatar-wrapper mx-auto mb-3">
+                        <div class="modal-avatar" id="modalAvatarContent">
                             <i class="fas fa-user-graduate fa-3x"></i>
                         </div>
                     </div>
@@ -712,6 +708,38 @@ function getAlumniInitials($name) {
     .avatar-placeholder-modal {
         color: white;
     }
+
+    .modal-avatar-wrapper {
+    width: 130px;
+    height: 130px;
+    margin: 0 auto;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-avatar i {
+    color: #2563eb;
+}
+
     
     /* Responsive adjustments */
     @media (max-width: 768px) {
@@ -770,12 +798,22 @@ function getAlumniInitials($name) {
                 const year = this.getAttribute('data-year');
                 const major = this.getAttribute('data-major');
                 const hasCv = this.getAttribute('data-cv');
+                const photo = this.getAttribute('data-photo');
                 
                 document.getElementById('modalAlumniName').textContent = name;
                 document.getElementById('modalAlumniNisn').textContent = nisn;
                 document.getElementById('modalAlumniYear').textContent = 'Angkatan ' + year;
                 // document.getElementById('modalAlumniMajor').textContent = major;
                 document.getElementById('modalAlumniCv').textContent = hasCv;
+
+                const avatarContent = document.getElementById('modalAvatarContent');
+
+                if (photo && photo !== '') {
+                    avatarContent.innerHTML = `<img src="${photo}" alt="${name}">`;
+                } else {
+                    avatarContent.innerHTML = `<i class="fas fa-user-graduate fa-3x"></i>`;
+                }
+
                 
                 // Get CV URL from the card
                 const card = this.closest('.alumni-card') || this.closest('tr');

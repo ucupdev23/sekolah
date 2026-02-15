@@ -258,14 +258,14 @@
 
             <!-- Login Form -->
             <form method="post" action="<?= site_url('admin/login'); ?>" id="loginForm">
-                <!-- Email Field -->
+                <!-- Username Field -->
                 <div class="mb-3">
-                    <label class="form-label">Email</label>
-                    <input type="email" 
-                           name="email" 
+                    <label class="form-label">Username</label>
+                    <input type="text" 
+                           name="username" 
                            class="form-control" 
-                           placeholder="admin@sekolah.test"
-                           value="<?= set_value('email'); ?>" 
+                           placeholder="Masukkan username"
+                           value="<?= set_value('username'); ?>" 
                            required
                            autocomplete="username"
                            autofocus>
@@ -295,7 +295,7 @@
 
                 <!-- Forgot Password -->
                 <div class="login-footer">
-                    <a href="#" class="forgot-link" data-bs-toggle="modal" data-bs-target="#forgotModal">
+                    <a href="<?= base_url('admin/forgot_password'); ?>" class="forgot-link">
                         <i class="fas fa-question-circle"></i>
                         Lupa password akun? Reset di sini
                     </a>

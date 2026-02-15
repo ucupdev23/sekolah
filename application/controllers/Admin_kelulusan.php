@@ -97,8 +97,16 @@ class Admin_kelulusan extends CI_Controller {
                     // $photo_path  = 'uploads/graduates/photos/' . $upload_data['file_name'];
                     $photo_path  = $upload_data['file_name'];
                 } else {
+                    $data['years'] = $this->Graduation_year_model->get_all();
+                    $data['title']       = 'Tambah Kelulusan - Admin';
+                    $data['active_menu'] = 'kelulusan';
                     $data['upload_error'] = $this->upload->display_errors();
-                    return $this->load->view('admin/kelulusan/form', $data);
+
+                    $this->load->view('templates/admin_header', $data);
+                    $this->load->view('admin/kelulusan/form', $data);
+                    $this->load->view('templates/admin_footer');
+                    
+                    return;
                 }
             }
 
@@ -120,8 +128,16 @@ class Admin_kelulusan extends CI_Controller {
                     // $cv_path     = 'uploads/graduates/cv/' . $upload_data['file_name'];
                     $cv_path     = $upload_data['file_name'];
                 } else {
+                    $data['years'] = $this->Graduation_year_model->get_all();
+                    $data['title']       = 'Tambah Kelulusan - Admin';
+                    $data['active_menu'] = 'kelulusan';
                     $data['upload_error'] = $this->upload->display_errors();
-                    return $this->load->view('admin/kelulusan/form', $data);
+
+                    $this->load->view('templates/admin_header', $data);
+                    $this->load->view('admin/kelulusan/form', $data);
+                    $this->load->view('templates/admin_footer');
+                    
+                    return;
                 }
             }
 
@@ -187,15 +203,26 @@ class Admin_kelulusan extends CI_Controller {
                 $this->upload->initialize($configPhoto);
 
                 if ($this->upload->do_upload('photo')) {
-                    if ($photo_path && file_exists(FCPATH . $photo_path)) {
-                        @unlink(FCPATH . $photo_path);
+                    // if ($photo_path && file_exists(FCPATH . $photo_path)) {
+                    //     @unlink(FCPATH . $photo_path);
+                    // }
+                    $old_file = FCPATH . '/uploads/graduates/photos/' . $photo_path;
+                        if ($photo_path && file_exists($old_file)) {
+                            unlink($old_file);
                     }
                     $upload_data = $this->upload->data();
                     // $photo_path  = 'uploads/graduates/photos/' . $upload_data['file_name'];
                     $photo_path  = $upload_data['file_name'];
                 } else {
+                    $data['title']       = 'Edit Kelulusan - Admin';
+                    $data['active_menu'] = 'kelulusan';
                     $data['upload_error'] = $this->upload->display_errors();
-                    return $this->load->view('admin/kelulusan/form', $data);
+
+                    $this->load->view('templates/admin_header', $data);
+                    $this->load->view('admin/kelulusan/form', $data);
+                    $this->load->view('templates/admin_footer');
+                    
+                    return;
                 }
             }
 
@@ -212,15 +239,26 @@ class Admin_kelulusan extends CI_Controller {
                 $this->upload->initialize($configCv);
 
                 if ($this->upload->do_upload('cv_file')) {
-                    if ($cv_path && file_exists(FCPATH . $cv_path)) {
-                        @unlink(FCPATH . $cv_path);
+                    // if ($cv_path && file_exists(FCPATH . $cv_path)) {
+                    //     @unlink(FCPATH . $cv_path);
+                    // }
+                    $old_file = FCPATH . '/uploads/graduates/cv/' . $cv_path;
+                        if ($cv_path && file_exists($old_file)) {
+                            unlink($old_file);
                     }
                     $upload_data = $this->upload->data();
                     // $cv_path     = 'uploads/graduates/cv/' . $upload_data['file_name'];
                     $cv_path     = $upload_data['file_name'];
                 } else {
+                    $data['title']       = 'Edit Kelulusan - Admin';
+                    $data['active_menu'] = 'kelulusan';
                     $data['upload_error'] = $this->upload->display_errors();
-                    return $this->load->view('admin/kelulusan/form', $data);
+
+                    $this->load->view('templates/admin_header', $data);
+                    $this->load->view('admin/kelulusan/form', $data);
+                    $this->load->view('templates/admin_footer');
+                    
+                    return;
                 }
             }
 
@@ -253,12 +291,20 @@ class Admin_kelulusan extends CI_Controller {
     {
         $graduate = $this->Graduates_model->get_by_id($id);
         if ($graduate) {
-            if ($graduate->photo_path && file_exists(FCPATH . $graduate->photo_path)) {
-                @unlink(FCPATH . $graduate->photo_path);
+            $file1 = FCPATH . '/uploads/graduates/photos/' . $graduate->photo_path;
+            if ($graduate->photo_path && file_exists($file1)) {
+                unlink($file1);
             }
-            if ($graduate->cv_link && file_exists(FCPATH . $graduate->cv_link)) {
-                @unlink(FCPATH . $graduate->cv_link);
+            $file2 = FCPATH . '/uploads/graduates/cv/' . $graduate->cv_link;
+            if ($graduate->cv_link && file_exists($file2)) {
+                unlink($file2);
             }
+            // if ($graduate->photo_path && file_exists(FCPATH . $graduate->photo_path)) {
+            //     @unlink(FCPATH . $graduate->photo_path);
+            // }
+            // if ($graduate->cv_link && file_exists(FCPATH . $graduate->cv_link)) {
+            //     @unlink(FCPATH . $graduate->cv_link);
+            // }
             $this->db->where('id', $id)->delete('graduates');
         }
 

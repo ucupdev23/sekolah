@@ -63,10 +63,23 @@ $route['berita/detail/(:any)'] = 'news/detail/$1';
 
 $route['kelulusan'] = 'kelulusan/index';
 
+$route['profil/password']        = 'profil/password';
+$route['profil/password/update'] = 'profil/password_update';
+
 // Admin auth + dashboard
 $route['admin']         = 'admin/dashboard';
 $route['admin/login']   = 'admin/login';
 $route['admin/logout']  = 'admin/logout';
+
+$route['admin/forgot_password']        = 'admin/forgot_password';
+$route['admin/forgot_password/process'] = 'admin/forgot_password_process';
+
+$route['admin/forgot_password/otp'] = 'admin/forgot_password_otp';
+$route['admin/forgot_password/verify'] = 'admin/forgot_password_verify';
+$route['admin/forgot_password/resend'] = 'admin/forgot_password_resend';
+$route['admin/forgot_password/new_password'] = 'admin/forgot_password_new_password';
+$route['admin/forgot_password/new_password_process'] = 'admin/forgot_password_new_password_process';
+
 
 // CRUD Pengumuman di admin
 $route['admin/pengumuman']              = 'admin_pengumuman/index';

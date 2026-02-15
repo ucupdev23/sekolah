@@ -67,17 +67,17 @@
                     
                     <div class="mb-4">
                         <label class="form-label fw-medium">
-                            <i class="fas fa-envelope me-2"></i>Email
+                            <i class="fas fa-user me-2"></i>Username
                             <span class="text-danger">*</span>
                         </label>
-                        <input type="email" 
-                               name="email" 
+                        <input type="text" 
+                               name="username" 
                                class="form-control border-2" 
-                               placeholder="Masukkan email valid"
-                               value="<?= set_value('email', isset($user) ? htmlspecialchars($user->email) : ''); ?>"
+                               placeholder="Masukkan username valid"
+                               value="<?= set_value('username', isset($user) ? htmlspecialchars($user->username) : ''); ?>"
                                required>
                         <div class="form-text text-muted">
-                            Email ini akan digunakan untuk login ke sistem
+                            Username ini akan digunakan untuk login ke sistem
                         </div>
                     </div>
                     
@@ -254,7 +254,7 @@
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check text-success me-2"></i>
-                        <small>Gunakan email valid untuk login</small>
+                        <small>Gunakan username valid untuk login</small>
                     </li>
                     <li class="mb-2">
                         <i class="fas fa-check text-success me-2"></i>
@@ -338,7 +338,7 @@
                                 <i class="fas fa-user fa-2x"></i>
                             </div>
                             <h3 id="previewName" class="fw-bold mb-2"></h3>
-                            <div id="previewEmail" class="text-muted mb-3"></div>
+                            <div id="previewUsername" class="text-muted mb-3"></div>
                             <div id="previewRole" class="mb-4"></div>
                         </div>
                         <div class="alert alert-info">
@@ -481,50 +481,60 @@
             new bootstrap.Tooltip(generateBtn);
             
             // Generate password function
-            generateBtn.addEventListener('click', function() {
-                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-                let password = '';
-                
-                // Generate 12-character password
-                for (let i = 0; i < 12; i++) {
-                    password += chars.charAt(Math.floor(Math.random() * chars.length));
-                }
-                
-                // Set password field
-                passwordField.value = password;
-                passwordField.dispatchEvent(new Event('input'));
-                
-                // Show feedback
-                showPasswordFeedback(password);
-            });
+            generateBtn.addEventListener('click', async function() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    let password = '';
+    
+    for (let i = 0; i < 12; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    
+    // Set password ke field
+    passwordField.value = password;
+    passwordField.dispatchEvent(new Event('input'));
+
+    // Copy ke clipboard
+    try {
+        await navigator.clipboard.writeText(password);
+        showPasswordFeedback(password, true);
+    } catch (err) {
+        console.error('Gagal copy:', err);
+        showPasswordFeedback(password, false);
+    }
+});
+
         }
     });
     
-    function showPasswordFeedback(password) {
-        // Create feedback element
-        const feedback = document.createElement('div');
-        feedback.className = 'alert alert-success alert-dismissible fade show mt-2';
-        feedback.innerHTML = `
-            <div class="d-flex align-items-center">
-                <i class="fas fa-check-circle me-2"></i>
-                <div>
-                    <div class="fw-medium">Password acak berhasil dibuat!</div>
-                    <small class="text-muted">Password: <code class="bg-light px-2 py-1 rounded">${password}</code></small>
+    function showPasswordFeedback(password, copied = false) {
+    const feedback = document.createElement('div');
+    feedback.className = 'alert alert-success alert-dismissible fade show mt-2';
+    feedback.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-check-circle me-2"></i>
+            <div>
+                <div class="fw-medium">
+                    Password acak berhasil dibuat ${copied ? 'dan disalin!' : '!'}
                 </div>
-                <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+                <small class="text-muted">
+                    ${copied ? 'Password sudah tersalin ke clipboard.' : ''}
+                    <br>
+                    <code class="bg-light px-2 py-1 rounded">${password}</code>
+                </small>
             </div>
-        `;
-        
-        // Insert after password field
-        const passwordContainer = document.querySelector('#passwordField').closest('.mb-4');
-        passwordContainer.appendChild(feedback);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            const bsAlert = new bootstrap.Alert(feedback);
-            bsAlert.close();
-        }, 5000);
-    }
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+
+    const passwordContainer = document.querySelector('#passwordField').closest('.mb-4');
+    passwordContainer.appendChild(feedback);
+
+    setTimeout(() => {
+        const bsAlert = new bootstrap.Alert(feedback);
+        bsAlert.close();
+    }, 5000);
+}
+
     
     // Card radio selection (existing code)
     document.querySelectorAll('.card-radio .form-check-input').forEach(input => {
@@ -545,11 +555,11 @@
     // Preview function (existing code)
     function previewUser() {
         const name = document.querySelector('input[name="name"]').value;
-        const email = document.querySelector('input[name="email"]').value;
+        const username = document.querySelector('input[name="username"]').value;
         const roleInput = document.querySelector('input[name="role"]:checked');
         const password = document.querySelector('#passwordField').value;
         
-        if (!name || !email || !roleInput) {
+        if (!name || !username || !roleInput) {
             alert('Harap isi semua field yang diperlukan!');
             return;
         }
@@ -567,7 +577,7 @@
         const roleIcon = role === 'super_admin' ? 'fa-crown' : 'fa-user-shield';
         
         document.getElementById('previewName').textContent = name;
-        document.getElementById('previewEmail').textContent = email;
+        document.getElementById('previewUsername').textContent = username;
         document.getElementById('previewRole').innerHTML = `
             <span class="badge bg-${roleColor} px-3 py-2">
                 <i class="fas ${roleIcon} me-1"></i>${roleText}
@@ -592,11 +602,11 @@
     // Form validation (existing code)
     document.getElementById('userForm').addEventListener('submit', function(e) {
         const name = document.querySelector('input[name="name"]').value;
-        const email = document.querySelector('input[name="email"]').value;
+        const username = document.querySelector('input[name="username"]').value;
         const role = document.querySelector('input[name="role"]:checked');
         const password = document.querySelector('#passwordField').value;
         
-        if (!name || !email || !role) {
+        if (!name || !username || !role) {
             e.preventDefault();
             alert('Harap isi semua field yang diperlukan!');
             return;
@@ -610,11 +620,11 @@
         }
         <?php endif; ?>
         
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
+        // Username validation
+        const usernameRegex = /^[a-zA-Z0-9_]+$/;
+        if (!usernameRegex.test(username)) {
             e.preventDefault();
-            alert('Format email tidak valid!');
+            alert('Format username tidak valid!');
             return;
         }
         

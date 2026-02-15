@@ -88,36 +88,38 @@
             </div>
             <div class="card-body">
                 <div class="row g-3">
-                    <div class="col-md-3">
+                    <div class="col-md-<?= $this->session->userdata('user_role') === 'super_admin' ? '3' : '4'; ?>">
                         <a href="<?= site_url('admin/pengumuman/tambah'); ?>" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
                             <i class="fas fa-plus-circle fa-2x mb-2"></i>
                             <span>Buat Pengumuman</span>
                         </a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-<?= $this->session->userdata('user_role') === 'super_admin' ? '3' : '4'; ?>">
                         <a href="<?= site_url('admin/berita/tambah'); ?>" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
                             <i class="fas fa-plus-circle fa-2x mb-2"></i>
                             <span>Tambah Berita</span>
                         </a>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-<?= $this->session->userdata('user_role') === 'super_admin' ? '3' : '4'; ?>">
                         <a href="<?= site_url('admin/kelulusan/tambah'); ?>" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
                             <i class="fas fa-plus-circle fa-2x mb-2"></i>
                             <span>Tambah Kelulusan</span>
                         </a>
                     </div>
-                    <div class="col-md-3">
-                        <a href="<?= site_url('admin/users'); ?>" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
-                            <i class="fas fa-user-plus fa-2x mb-2"></i>
-                            <span>Kelola Admin</span>
-                        </a>
-                    </div>
+                    
+                    <?php if ($this->session->userdata('user_role') === 'super_admin'): ?>
+                        <div class="col-md-3">
+                            <a href="<?= site_url('admin/users'); ?>" class="btn btn-outline-primary w-100 d-flex flex-column align-items-center py-3">
+                                <i class="fas fa-user-plus fa-2x mb-2"></i>
+                                <span>Kelola Admin</span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <footer class="mt-5 pt-4 border-top">
     <p class="text-center text-muted small">

@@ -367,7 +367,7 @@
     </div>
 </div>
 
-<style>
+<!-- <style>
     .icon-wrapper {
         width: 40px;
         height: 40px;
@@ -399,6 +399,42 @@
     
     .input-group .btn {
         padding: 0.25rem 0.5rem;
+    }
+</style> -->
+<style>
+    .icon-wrapper {
+        width: 60px;
+        height: 60px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    .year-row:hover {
+        background-color: #f8fafc;
+        cursor: pointer;
+    }
+    
+    .btn-group .btn {
+        border-radius: 6px !important;
+        margin: 0 2px;
+    }
+    
+    .btn-group .btn:hover {
+        transform: translateY(-2px);
+        transition: transform 0.2s;
+    }
+    
+    .badge.bg-info, .badge.bg-secondary {
+        padding: 0.75rem;
+        border-radius: 8px;
+    }
+    
+    h4.fw-bold {
+        font-size: 1.5rem;
+        color: #1e293b;
     }
 </style>
 

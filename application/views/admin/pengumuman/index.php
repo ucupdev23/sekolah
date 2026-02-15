@@ -88,28 +88,42 @@
     </div>
 </div>
 
+<!-- Search -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+        <form method="get" action="<?= site_url('admin/pengumuman'); ?>" class="row g-3">
+            <div class="col-md-10">
+                <div class="input-group">
+                    <span class="input-group-text bg-light">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    <input type="text" 
+                           name="search" 
+                           class="form-control" 
+                           placeholder="Cari kategori..."
+                           value="<?= $this->input->get('search'); ?>">
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-2"></i>Cari
+                    </button>
+                    <?php if ($this->input->get('search')): ?>
+                        <a href="<?= site_url('admin/pengumuman'); ?>" class="btn btn-outline-secondary">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Table -->
 <div class="card border-0 shadow-sm">
-    <div class="card-header bg-white d-flex justify-content-between align-items-center">
-    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Daftar Pengumuman</h5>
-    <form method="get" action="<?= site_url('admin/pengumuman'); ?>" class="d-flex">
-        <div class="input-group input-group-sm me-2" style="width: 250px;">
-            <input type="text" 
-                   name="search" 
-                   class="form-control" 
-                   placeholder="Cari pengumuman..."
-                   value="<?= $this->input->get('search'); ?>">
-            <button type="submit" class="btn btn-primary">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-        <?php if ($this->input->get('search')): ?>
-            <a href="<?= site_url('admin/pengumuman'); ?>" class="btn btn-outline-secondary btn-sm">
-                <i class="fas fa-times"></i>
-            </a>
-        <?php endif; ?>
-    </form>
-</div>
+    <div class="card-header bg-white">
+        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Daftar Pengumuman</h5>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -118,18 +132,18 @@
                     <tr>
                         <th style="width: 80px;" class="text-center">
                             <span class="d-flex align-items-center">
-                                No <i class="fas fa-sort ms-1 text-muted"></i>
+                                No
                             </span>
                         </th>
                         <th>Judul</th>
                         <th style="width: 150px;">
                             <span class="d-flex align-items-center">
-                                <i class="fas fa-calendar me-1"></i> Tanggal
+                                 Tanggal
                             </span>
                         </th>
                         <th style="width: 180px;" class="text-center">
                             <span class="d-flex align-items-center justify-content-center">
-                                <i class="fas fa-cog me-1"></i> Aksi
+                                Aksi
                             </span>
                         </th>
                     </tr>
@@ -338,7 +352,7 @@
         border-top: none;
         border-bottom: 2px solid #f1f5f9;
         font-weight: 600;
-        color: #64748b;
+        color: #000000;
         padding: 1rem;
     }
     

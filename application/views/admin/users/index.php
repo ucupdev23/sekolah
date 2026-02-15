@@ -137,7 +137,7 @@
                             </span>
                         </th>
                         <th>Admin</th>
-                        <th>Email</th>
+                        <th>Username</th>
                         <th style="width: 150px;" class="text-center">Role</th>
                         <th style="width: 180px;" class="text-center">Aksi</th>
                     </tr>
@@ -175,8 +175,8 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <i class="fas fa-envelope me-2 text-muted"></i>
-                                        <?= htmlspecialchars($user->email); ?>
+                                        <i class="fas fa-user me-2 text-muted"></i>
+                                        <?= htmlspecialchars($user->username); ?>
                                     </div>
                                     <?php if (isset($user->created_at)): ?>
                                         <small class="text-muted">

@@ -10,29 +10,30 @@ yang belum :
 4. ✅ kolom tanggal publish di pengumuman dan berita harusnya ga ada, diambil dari tgl berapa pengumuman dan berita itu disimpan [done]
 5. ✅ crud kategori [done]
 6. ✅ crud tahun lulus [done]
-7. forgot password
+7. ✅ forgot password [done]
 8. ✅ gambar berita di home di atur besarnya [done]
 9. ✅ dashboard kurang menarik [done]
 10. ✅ pengumuman, kategori dan admin user pake id harusnya no [done] 
 11. ✅ ubah template adminnya [done]
-12. ganti password 
+12. ✅ ganti password [done]
 13. ✅ halaman detail kelulusan perorang <`ga usah`>
 14. ✅ remake halaman landing page sekolah [done]
 15. ✅ remake halaman login dan kasih eye [done]
-16. di dashboard kalau dia admin ga ada menu cepat kelola admin
-17. diadmin, di pengumuman bagian filternya disamain kayak kategori berita
-18. diberita edit belum nimpa atau hapus gambar lama
-19. diberita delete belum ngehapus gambar
-20. dikelulusan juga sama, edit dan delete belum bisa menghapus foto dan cv lama
-21. di admin user, pas password acak harusnya langsung ngecopy
+16. ✅ di dashboard kalau dia admin ga ada menu cepat kelola admin [done]
+17. ✅ diadmin, di pengumuman bagian filternya disamain kayak kategori berita [done]
+18. ✅ diberita edit belum nimpa atau hapus gambar lama [done]
+19. ✅ diberita delete belum ngehapus gambar [done]
+20. ✅ dikelulusan juga sama, edit dan delete belum bisa menghapus foto dan cv lama [done]
+21. ✅ di admin user, pas password acak harusnya langsung ngecopy [done]
+22. di admin user, tambahin kolom no wa
 
 yang masih berantakan :
 
-1. footer landing page [done]
-2. detail pengumuman, berita dan kelulusan
-3. detail berita ada yang error [done]
-4. detail kelulusan bagian filter dan foto (jurusan juga belum ada) <jurusan jan dulu deh>
-5. kelulusan pas diklik modal tampilkan foto orangnya
+1. ✅ footer landing page [done]
+2. ✅ detail pengumuman, berita dan kelulusan [done]
+3. ✅ detail berita ada yang error [done]
+4. ✅ detail kelulusan bagian filter dan foto [done] (jurusan juga belum ada) <jurusan jan dulu deh>
+5. ✅ kelulusan pas diklik modal tampilkan foto orangnya [done]
 
 akses :
 
