@@ -71,6 +71,7 @@ class Admin_users extends CI_Controller {
     {
         if ($this->input->post()) {
             $this->form_validation->set_rules('name', 'Nama', 'required');
+            $this->form_validation->set_rules('no_wa', 'Nomor WhatsApp', 'required|is_unique[users.no_wa]');
             $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]');
             $this->form_validation->set_rules('role', 'Role', 'required|in_list[admin,super_admin]');
@@ -92,6 +93,7 @@ class Admin_users extends CI_Controller {
                 $passwordPlain = $this->input->post('password');
                 $insert = array(
                     'name'     => $this->input->post('name', TRUE),
+                    'no_wa'     => $this->input->post('no_wa', TRUE),
                     'username'    => $this->input->post('username', TRUE),
                     'password' => password_hash($passwordPlain, PASSWORD_DEFAULT),
                     'role'     => $this->input->post('role'),
@@ -124,6 +126,7 @@ class Admin_users extends CI_Controller {
 
         if ($this->input->post()) {
             $this->form_validation->set_rules('name', 'Nama', 'required');
+            $this->form_validation->set_rules('no_wa', 'Nomor WhatsApp', 'required|is_unique[users.no_wa]');
             $this->form_validation->set_rules('username', 'Username', 'required|is_unique[users.username]');
             $this->form_validation->set_rules('role', 'Role', 'required|in_list[admin,super_admin]');
 
@@ -148,6 +151,7 @@ class Admin_users extends CI_Controller {
 
                 $update = array(
                     'name'  => $this->input->post('name', TRUE),
+                    'no_wa'     => $this->input->post('no_wa', TRUE),
                     'username' => $this->input->post('username', TRUE),
                     'role'  => $this->input->post('role'),
                     'updated_at' => date('Y-m-d H:i:s')

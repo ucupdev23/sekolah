@@ -64,6 +64,22 @@
                             Nama lengkap admin yang akan ditampilkan di sistem
                         </div>
                     </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-medium">
+                            <i class="fas fa-user me-2"></i>Nomor Whatsapp
+                            <span class="text-danger">*</span>
+                        </label>
+                        <input type="text" 
+                               name="no_wa" 
+                               class="form-control border-2" 
+                               placeholder="Masukkan nomor whatsapp"
+                               value="<?= set_value('no_wa', isset($user) ? htmlspecialchars($user->no_wa) : ''); ?>"
+                               required>
+                        <div class="form-text text-danger">
+                            Gunakan format 628****, jangan gunakan tanda + atau 0 di awal
+                        </div>
+                    </div>
                     
                     <div class="mb-4">
                         <label class="form-label fw-medium">
